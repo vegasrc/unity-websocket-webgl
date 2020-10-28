@@ -461,14 +461,14 @@ namespace HybridWebSocket
         /// WebSocket constructor.
         /// </summary>
         /// <param name="url">Valid WebSocket URL.</param>
-        public WebSocket(string url)
+        public WebSocket(string url, params string[] protocols)
         {
 
             try
             {
                    
                 // Create WebSocket instance
-                this.ws = new WebSocketSharp.WebSocket(url);
+                this.ws = new WebSocketSharp.WebSocket(url, protocols);
 
                 // Bind OnOpen event
                 this.ws.OnOpen += (sender, ev) =>
@@ -736,7 +736,7 @@ namespace HybridWebSocket
         /// </summary>
         /// <returns>The WebSocket instance.</returns>
         /// <param name="url">WebSocket valid URL.</param>
-        public static WebSocket CreateInstance(string url)
+        public static WebSocket CreateInstance(string url, params string[] protocols)
         {
 #if UNITY_WEBGL && !UNITY_EDITOR
         if (!isInitialized)
@@ -748,7 +748,7 @@ namespace HybridWebSocket
 
         return wrapper;
 #else
-            return new WebSocket(url);
+            return new WebSocket(url, protocols);
 #endif
         }
 
